@@ -9,12 +9,16 @@ namespace BeautySalonBusinessLogic.BindingModels
     {
         [DataMember]
         public int? Id { get; set; }
+
         [DataMember]
-        public int ServicelId { get; set; }
+        public int OrderId { get; set; }
+
         [DataMember]
         public int ClientId { get; set; }
+
         [DataMember]
         public DateTime DatePayment { get; set; }
+
         [DataMember]
         public int Sum { get; set; }
     }

@@ -10,10 +10,14 @@ namespace BeautySalonBusinessLogic.BindingModels
     public class ClientBindingModel
     {
         [DataMember]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [DataMember]
         public string ClientFIO { get; set; }
+
+        [DataMember]
+        public string Email { get; set; }
+
         [DataMember]
         public string Login { get; set; }
 
@@ -21,12 +25,9 @@ namespace BeautySalonBusinessLogic.BindingModels
         public string Password { get; set; }
 
         [DataMember]
-        public string Email { get; set; }
+        public string Phone { get; set; }
 
         [DataMember]
-        public int Phone { get; set; }
-
-        [DataMember]
-        public bool Block { get; set; }
+        public bool isBlocked { get; set; }
     }
 }
