@@ -38,6 +38,7 @@ namespace BeautyShopDatabase.Implements
                 context.SaveChanges();
             }
         }
+
         public void Delete(PaymentBindingModel model)
         {
             using (var context = new Database())
@@ -55,6 +56,7 @@ namespace BeautyShopDatabase.Implements
                 }
             }
         }
+
         public List<PaymentViewModel> Read(PaymentBindingModel model)
         {
             using (var context = new Database())

@@ -77,6 +77,7 @@ namespace BeautyShopDatabase.Implements
                 }
             }
         }
+
         public void Delete(OrderBindingModel model)
         {
             using (var context = new Database())
@@ -94,6 +95,7 @@ namespace BeautyShopDatabase.Implements
                 }
             }
         }
+
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             using (var context = new Database())
@@ -114,6 +116,7 @@ namespace BeautyShopDatabase.Implements
             .ToList();
             }
         }
+
         public static List<OrderServiceViewModel> GetOrderServiceViewModel(Order order)
         {
             using (var context = new Database())

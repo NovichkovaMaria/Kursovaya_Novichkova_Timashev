@@ -14,74 +14,98 @@ namespace BeautyShopDatabase.Implements
 {
     public class ServiceLogic : IServiceLogic
     {
-        private readonly string ServiceFileName = "Service.xml";
-
-        public List<Service> Services { get; set; }
-
-        public ServiceLogic()
+        public void CreateOrUpdate(ServiceBindingModel model)
         {
-            Services = LoadServices();
-        }
-
-        private List<Service> LoadServices()
-        {
-            var list = new List<Service>();
-            if (File.Exists(ServiceFileName))
-            {
-                XDocument xDocument = XDocument.Load(ServiceFileName);
-                var xElements = xDocument.Root.Elements("Service").ToList();
-                foreach (var elem in xElements)
-                {
-                    list.Add(new Service
-                    {
-                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        ServiceName = elem.Element("ServiceName").Value,
-                        Price = Convert.ToInt32(elem.Element("Price").Value),
-                        Desc = elem.Element("Desc").Value,
-                    });
-                }
-            }
-            return list;
-        }
-
-        public void SaveToDatabase()
-        {
-            var services = LoadServices();
             using (var context = new Database())
             {
-                foreach (var service in services)
+                Service tempService = model.Id.HasValue ? null : new Service();
+
+                if (model.Id.HasValue)
                 {
-                    Service element = context.Services.FirstOrDefault(rec => rec.Id == service.Id);
-                    if (element != null)
+                    tempService = context.Services.FirstOrDefault(rec => rec.Id == model.Id);
+                }
+
+                if (model.Id.HasValue)
+                {
+                    if (tempService == null)
                     {
-                        break;
+                        throw new Exception("Элемент не найден");
                     }
-                    else
-                    {
-                        element = new Service();
-                        context.Services.Add(element);
-                    }
-                    element.ServiceName = service.ServiceName;
-                    element.Desc = service.Desc;
-                    element.Price = service.Price;
+
+                    CreateModel(model, tempService);
+                }
+                else
+                {
+                    context.Services.Add(CreateModel(model, tempService));
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public void Delete(ServiceBindingModel model)
+        {
+            using (var context = new Database())
+            {
+                Service element = context.Services.FirstOrDefault(rec => rec.Id == model.Id.Value);
+
+                if (element != null)
+                {
+                    context.Services.Remove(element);
                     context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Элемент не найден");
                 }
             }
         }
 
         public List<ServiceViewModel> Read(ServiceBindingModel model)
         {
-            SaveToDatabase();
-            return Services
-            .Where(rec => model == null || rec.Id == model.Id)
-            .Select(rec => new ServiceViewModel
+            using (var context = new Database())
             {
-                Id = rec.Id,
-                ServiceName = rec.ServiceName,
-                Desc = rec.Desc,
-                Price = rec.Price
-            })
-            .ToList();
+                List<ServiceViewModel> result = new List<ServiceViewModel>();
+
+                if (model != null)
+                {
+                    result.AddRange(context.Services
+                        .Where(rec => rec.Id == model.Id || rec.ServiceName == model.ServiceName
+                        || (model.ServiceName == null && model.Id == null))
+                        .Select(rec => CreateViewModel(rec)));
+                }
+                else
+                {
+                    result.AddRange(context.Services.Select(rec => CreateViewModel(rec)));
+                }
+                return result;
+            }
+        }
+
+        private Service CreateModel(ServiceBindingModel model, Service product)
+        {
+            using (var context = new Database())
+            {
+                product.ServiceName = model.ServiceName;
+                product.Desc = model.Desc;
+                product.Price = model.Price;
+
+                return product;
+            }
+        }
+
+        static private ServiceViewModel CreateViewModel(Service product)
+        {
+            using (var context = new Database())
+            {
+                return new ServiceViewModel
+                {
+                    Id = product.Id,
+                    ServiceName = product.ServiceName,
+                    Desc = product.Desc,
+                    Price = product.Price,
+                };
+            }
         }
     }
 }
