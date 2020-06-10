@@ -1596,7 +1596,7 @@ getText = Sizzle.getText = function( elem ) {
 		if ( typeof elem.textContent === "string" ) {
 			return elem.textContent;
 		} else {
-			// Traverse its children
+			// Servicerse its children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				ret += getText( elem );
 			}

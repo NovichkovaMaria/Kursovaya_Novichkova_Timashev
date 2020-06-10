@@ -1,7 +1,7 @@
 ﻿using BeautySalonBusinessLogic.BindingModels;
 using BeautySalonBusinessLogic.Interfaces;
 using BeautySalonBusinessLogic.ViewModel;
-using BeautyShopDatabase.Models;
+using BeautySalonDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace BeautyShopDatabase.Implements
+namespace BeautySalonDatabase.Implements
 {
     public class ServiceLogic : IServiceLogic
     {

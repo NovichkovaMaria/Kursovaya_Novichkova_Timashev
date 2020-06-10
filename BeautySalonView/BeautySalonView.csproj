@@ -233,10 +233,6 @@
       <Project>{f01d4fab-bc44-452e-b57b-e2380827aea8}</Project>
       <Name>BeautySalonBusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BeautyShopDatabase\BeautyShopDatabase.csproj">
-      <Project>{caf29f96-530f-432e-8794-5ea796567924}</Project>
-      <Name>BeautyShopDatabase</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />

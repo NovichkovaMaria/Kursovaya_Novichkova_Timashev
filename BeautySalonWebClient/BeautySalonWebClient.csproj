@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BeautySalonBusinessLogic\BeautySalonBusinessLogic.csproj" />
-    <ProjectReference Include="..\BeautyShopDatabase\BeautyShopDatabase.csproj" />
+    <ProjectReference Include="..\BeautySalonDatabase\BeautySalonDatabase.csproj" />
   </ItemGroup>
 
 </Project>

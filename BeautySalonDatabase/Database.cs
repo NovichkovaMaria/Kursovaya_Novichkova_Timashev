@@ -1,4 +1,4 @@
-﻿using BeautyShopDatabase.Models;
+﻿using BeautySalonDatabase.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeautyShopDatabase
+namespace BeautySalonDatabase
 {
     public class Database : DbContext
     {

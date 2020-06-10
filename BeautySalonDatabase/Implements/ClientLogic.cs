@@ -1,14 +1,14 @@
 ﻿using BeautySalonBusinessLogic.BindingModels;
 using BeautySalonBusinessLogic.Interfaces;
 using BeautySalonBusinessLogic.ViewModel;
-using BeautyShopDatabase.Models;
+using BeautySalonDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeautyShopDatabase.Implements
+namespace BeautySalonDatabase.Implements
 {
     public class ClientLogic : IClientLogic
     {

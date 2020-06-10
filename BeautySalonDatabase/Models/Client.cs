@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BeautyShopDatabase.Models
+namespace BeautySalonDatabase.Models
 {
     public class Client
     {

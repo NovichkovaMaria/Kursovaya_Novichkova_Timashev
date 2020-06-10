@@ -18,18 +18,15 @@ namespace BeautySalonView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly IServiceLogic logic;
-
         public FormServices(IServiceLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
-
         private void FormServices_Load(object sender, EventArgs e)
         {
             LoadData();
         }
-
         private void LoadData()
         {
             try
@@ -49,7 +46,6 @@ namespace BeautySalonView
                MessageBoxIcon.Error);
             }
         }
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormService>();
@@ -58,7 +54,6 @@ namespace BeautySalonView
                 LoadData();
             }
         }
-
         private void buttonUpd_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -71,7 +66,6 @@ namespace BeautySalonView
                 }
             }
         }
-
         private void buttonDel_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -93,7 +87,6 @@ namespace BeautySalonView
                 }
             }
         }
-
         private void buttonRef_Click(object sender, EventArgs e)
         {
             LoadData();

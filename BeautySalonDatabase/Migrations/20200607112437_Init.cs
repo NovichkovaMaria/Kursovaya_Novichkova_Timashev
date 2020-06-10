@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BeautyShopDatabase.Migrations
+namespace BeautySalonDatabase.Migrations
 {
     public partial class Init : Migration
     {

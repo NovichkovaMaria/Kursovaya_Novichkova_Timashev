@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CAF29F96-530F-432E-8794-5EA796567924}</ProjectGuid>
+    <ProjectGuid>{E443F471-E0D4-45F2-ADC2-2FE5F04F335C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BeautyShopDatabase</RootNamespace>
-    <AssemblyName>BeautyShopDatabase</AssemblyName>
+    <RootNamespace>BeautySalonDatabase</RootNamespace>
+    <AssemblyName>BeautySalonDatabase</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
