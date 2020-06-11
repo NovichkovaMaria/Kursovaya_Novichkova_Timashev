@@ -21,5 +21,11 @@ namespace BeautySalonBusinessLogic.BindingModels
 
         [DataMember]
         public int Sum { get; set; }
+
+        [DataMember]
+        public DateTime? DateFrom { get; set; }
+
+        [DataMember]
+        public DateTime? DateTo { get; set; }
     }
 }
