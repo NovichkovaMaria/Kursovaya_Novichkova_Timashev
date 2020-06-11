@@ -33,10 +33,16 @@ namespace BeautySalonView
             form.ShowDialog();
         }
 
-        private void отчетПоВыполненнымУслугамToolStripMenuItem_Click(object sender, EventArgs e)
+        private void счётКлиентуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var form = Container.Resolve<FormReportService>();
-            //form.ShowDialog();
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+
+        private void поОплатамЗаПериодToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportPayment>();
+            form.ShowDialog();
         }
     }
 }

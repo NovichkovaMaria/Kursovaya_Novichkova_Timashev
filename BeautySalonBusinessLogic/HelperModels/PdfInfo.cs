@@ -1,6 +1,7 @@
 ﻿using BeautySalonBusinessLogic.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BeautySalonBusinessLogic.HelperModels
@@ -9,6 +10,6 @@ namespace BeautySalonBusinessLogic.HelperModels
     {
         public string FileName { get; set; }
         public string Title { get; set; }
-        public List<PaymentViewModel> Payments{ get; set; }
+        public List<IGrouping<DateTime, PaymentViewModel>> Payments { get; set; }
     }
 }

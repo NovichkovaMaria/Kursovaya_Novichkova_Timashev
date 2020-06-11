@@ -1,5 +1,5 @@
 ﻿using BeautySalonBusinessLogic.Interfaces;
-using BeautyShopDatabase.Implements;
+using BeautySalonDatabase.Implements;
 using System;
 using System.Collections.Generic;
 using System.Linq;

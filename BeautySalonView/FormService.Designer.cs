@@ -120,7 +120,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormService";
-            this.Text = "Изделие";
+            this.Text = "Услуга";
             this.ResumeLayout(false);
             this.PerformLayout();
 

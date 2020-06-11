@@ -1,9 +1,11 @@
 ﻿using BeautySalonBusinessLogic.HelperModels;
+using DocumentFormat.OpenXml.Office2013.Excel;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BeautySalonBusinessLogic.BuisnessLogics
@@ -34,19 +36,23 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
                 Style = "NormalTitle",
                 ParagraphAlignment = ParagraphAlignment.Center
             });
+
             foreach (var cl in info.Payments)
             {
-                CreateRow(new PdfRowParameters
+                for (int i = 0; i < cl.Count(); i++)
                 {
-                    Table = table,
-                    Texts = new List<string>
+                    CreateRow(new PdfRowParameters
                     {
-                        cl.DatePayment.ToString(),
-                        cl.Sum.ToString(),
-                    },
-                    Style = "Normal",
-                    ParagraphAlignment = ParagraphAlignment.Left
-                });
+                        Table = table,
+                        Texts = new List<string>
+                        {
+                            cl.ElementAt(i).ToString(),
+                            cl.ElementAt(i).Sum.ToString(),
+                        },
+                        Style = "Normal",
+                        ParagraphAlignment = ParagraphAlignment.Left
+                    });
+                }
             }
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
             {

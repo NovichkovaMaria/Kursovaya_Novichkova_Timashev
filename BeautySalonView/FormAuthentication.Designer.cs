@@ -89,7 +89,7 @@
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxLogin);
             this.Name = "FormAuthentication";
-            this.Text = "FormAuthentication";
+            this.Text = "Аунтефикация";
             this.ResumeLayout(false);
             this.PerformLayout();
 

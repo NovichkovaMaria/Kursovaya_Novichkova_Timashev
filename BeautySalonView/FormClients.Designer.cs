@@ -118,7 +118,7 @@
             this.Controls.Add(this.labelFIO);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormClients";
-            this.Text = "FormClients";
+            this.Text = "Клиенты";
             this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

@@ -68,13 +68,15 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             }
             return list;
         }
+
         public List<IGrouping<DateTime, PaymentViewModel>> GetPayments(ReportBindingModel model)
         {
 
             var cl = paymentLogic.Read(new PaymentBindingModel
             {
                 DateFrom = model.DateFrom,
-                DateTo = model.DateTo
+                DateTo = model.DateTo,
+                
             })
             .GroupBy(rec => rec.DatePayment.Date)
             .OrderBy(recG => recG.Key)
@@ -82,59 +84,39 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             return cl;
         }
 
-        public List<PaymentViewModel> GetPayments(int id)
+        public void SaveOrdersToExcelFile(ReportBindingModel model)
         {
-            var payments = paymentLogic.Read(null);
-            var list = new List<PaymentViewModel>();
-            foreach (var payment in payments)
-            {
-                if (payment.Id == id)
-                {
-                    var record = new PaymentViewModel
-                    {
-                        DatePayment = payment.DatePayment,
-                        Sum = payment.Sum
-                    };
-                    list.Add(record);
-                }
-            }
-            return list;
-        }
-
-        public void SaveOrdersToExcelFile(string fileName, int id, string email)
-        {
-            string title = "Выполненные услуги";
+            string title = "Заказы";
             SaveToExcel.CreateDoc(new ExcelInfo
             {
-                FileName = fileName,
+                FileName = model.FileName,
                 Title = title,
-                Orders = GetOrders(id),
+                Orders = GetOrders(model.id),
             });
-            SendMail(email, fileName, title);
+            SendMail(model.email, model.FileName, title);
         }
 
-        public void SaveOrdersToWordFile(string fileName, int id, string email)
+        public void SaveOrdersToWordFile(ReportBindingModel model)
         {
-            string title = "Выполненные услуги";
+            string title = "Заказы";
             SaveToWord.CreateDoc(new WordInfo
             {
-                FileName = fileName,
+                FileName = model.FileName,
                 Title = title,
-                Orders = GetOrders(id),
+                Orders = GetOrders(model.id),
             });
-            SendMail(email, fileName, title);
+            SendMail(model.email, model.FileName, title);
         }
 
-        public void SavePaymentsToPdfFile(string fileName, int id, string email)
+        public void SavePaymentsToPdfFile(ReportBindingModel model)
         {
             string title = "Клиенты и их счета";
             SaveToPdf.CreateDoc(new PdfInfo
             {
-                FileName = fileName,
+                FileName = model.FileName,
                 Title = title,
-                Payments = GetPayments(id),
+                Payments = GetPayments(model)
             });
-            SendMail(email, fileName, title);
         }
 
         public void SendMail(string email, string fileName, string subject)
