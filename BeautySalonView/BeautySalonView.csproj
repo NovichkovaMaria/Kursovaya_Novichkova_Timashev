@@ -288,9 +288,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ReportPayment.rdlc" />
+    <EmbeddedResource Include="ReportPayments.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\BeautySalonBusinessLogic.ViewModel.ClientViewModel.datasource" />
+    <None Include="Properties\DataSources\BeautySalonBusinessLogic.ViewModel.OrderServiceViewModel.datasource" />
+    <None Include="Properties\DataSources\BeautySalonBusinessLogic.ViewModel.OrderViewModel.datasource" />
     <None Include="Properties\DataSources\BeautySalonBusinessLogic.ViewModel.PaymentViewModel.datasource" />
+    <None Include="Properties\DataSources\BeautySalonBusinessLogic.ViewModel.ServiceViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -22,7 +22,6 @@ namespace BeautySalonView
         public FormReportPayment(ReportLogic logic)
         {
             InitializeComponent();
-            this.reportViewer.RefreshReport();
             this.logic = logic;
         }
 
@@ -41,7 +40,7 @@ namespace BeautySalonView
             try
             {
                 var dataSource = logic.GetPayments(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, DateTo = dateTimePickerTo.Value.Date });
-                ReportDataSource source = new ReportDataSource("DataSetPayment", dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetPayments", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }
