@@ -1,0 +1,31 @@
+﻿@model BeautySalonWeb.Models.CreateOrderModel
+
+@{ ViewData["Title"] = "Записаться на услугу"; }
+<div class="text-center text-info">
+    <h1>@ViewData["Title"]</h1>
+</div>
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @style = "color: red" })
+    <p>Состав:</p>
+    <table class="table">
+    <tr>
+    <td>Услуга</td>
+    <td>Описание</td>
+    <td>Цена</td>
+    </tr>}
+    @foreach (BeautySalonBusinessLogic.ViewModel.ServiceViewModel service in ViewBag.OrderServices)
+    {
+        <tr>
+        <td>@service.ServiceName</td>
+        <td>@service.Desc</td>
+        <td><input type="number" name="Model.OrderServices[@service.Id]" value="0" min="0" /></td>
+        <td>@service.Price</td>
+        </tr>
+    }
+    </table>
+    <button type="submit" class="btn btn-info btn-sm">Создать</button>
+}
+
+

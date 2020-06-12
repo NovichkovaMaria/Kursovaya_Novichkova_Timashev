@@ -52,16 +52,16 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
                 int i = 1;
                 foreach (var order in info.Orders)
                 {
-                    TableRow tourRow = new TableRow();
+                    TableRow serviceRow = new TableRow();
                     TableCell fioCell = new TableCell(new Paragraph(new Run(new Text(order.ClientFIO))));
                     TableCell dateCreateCell = new TableCell(new Paragraph(new Run(new Text(order.DateCreate.ToString()))));
                     TableCell sumCell = new TableCell(new Paragraph(new Run(new Text(order.Sum.ToString()))));
                     TableCell statusCell = new TableCell(new Paragraph(new Run(new Text(order.Status.ToString()))));
-                    tourRow.Append(fioCell);
-                    tourRow.Append(dateCreateCell);
-                    tourRow.Append(sumCell);
-                    tourRow.Append(statusCell);
-                    table.Append(tourRow);
+                    serviceRow.Append(fioCell);
+                    serviceRow.Append(dateCreateCell);
+                    serviceRow.Append(sumCell);
+                    serviceRow.Append(statusCell);
+                    table.Append(serviceRow);
                     i++;
                 }
                 docBody.Append(table);
@@ -70,6 +70,65 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             }
         }
 
+        public static void CreateDoc(WordInfoClient info)
+        {
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
+            {
+                MainDocumentPart mainPart = wordDocument.AddMainDocumentPart();
+                mainPart.Document = new Document();
+                Body docBody = mainPart.Document.AppendChild(new Body());
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<string> { info.Title },
+                    TextProperties = new WordParagraphProperties
+                    {
+                        Bold = true,
+                        Size = "24",
+                        JustificationValues = JustificationValues.Center
+                    }
+                }));
+                Table table = new Table();
+                TableProperties tblProp = new TableProperties(
+                    new TableBorders(
+                        new TopBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new BottomBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new LeftBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new RightBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new InsideHorizontalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 },
+                        new InsideVerticalBorder() { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 8 }
+                    )
+                );
+                table.AppendChild<TableProperties>(tblProp);
+                TableRow headerRow = new TableRow();
+                TableCell headerNumberCell = new TableCell(new Paragraph(new Run(new Text("№"))));
+                TableCell headerNameCell = new TableCell(new Paragraph(new Run(new Text("Название"))));
+                TableCell headerDescCell = new TableCell(new Paragraph(new Run(new Text("Описание"))));
+                TableCell headerPriceCell = new TableCell(new Paragraph(new Run(new Text("Цена"))));
+                headerRow.Append(headerNumberCell);
+                headerRow.Append(headerNameCell);
+                headerRow.Append(headerDescCell);
+                headerRow.Append(headerPriceCell);
+                table.Append(headerRow);
+                int i = 1;
+                foreach (var service in info.Services)
+                {
+                    TableRow serviceRow = new TableRow();
+                    TableCell numberCell = new TableCell(new Paragraph(new Run(new Text(i.ToString()))));
+                    TableCell nameCell = new TableCell(new Paragraph(new Run(new Text(service.ServiceName))));
+                    TableCell descCell = new TableCell(new Paragraph(new Run(new Text(service.Desc))));
+                    TableCell priceCell = new TableCell(new Paragraph(new Run(new Text(service.Price.ToString()))));
+                    serviceRow.Append(numberCell);
+                    serviceRow.Append(nameCell);
+                    serviceRow.Append(descCell);
+                    serviceRow.Append(priceCell);
+                    table.Append(serviceRow);
+                    i++;
+                }
+                docBody.Append(table);
+                docBody.AppendChild(CreateSectionProperties());
+                wordDocument.MainDocumentPart.Document.Save();
+            }
+        }
         private static SectionProperties CreateSectionProperties()
         {
             SectionProperties properties = new SectionProperties();

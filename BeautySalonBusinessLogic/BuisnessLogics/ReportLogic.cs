@@ -16,11 +16,13 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
     {
         private readonly IOrderLogic orderLogic;
         private readonly IPaymentLogic paymentLogic;
+        private readonly IServiceLogic serviceLogic;
 
-        public ReportLogic(IOrderLogic orderLogic, IPaymentLogic paymentLogic)
+        public ReportLogic(IOrderLogic orderLogic, IPaymentLogic paymentLogic, IServiceLogic serviceLogic)
         {
             this.orderLogic = orderLogic;
             this.paymentLogic = paymentLogic;
+            this.serviceLogic = serviceLogic;
         }
 
         public List<OrderViewModel> GetOrders()
@@ -69,6 +71,33 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             return list;
         }
 
+        public Dictionary<int, List<PaymentViewModel>> GetOrders(OrderBindingModel model)
+        {
+            var orders = orderLogic.Read(model).ToList();
+            Dictionary<int, List<PaymentViewModel>> payments = new Dictionary<int, List<PaymentViewModel>>();
+            foreach (var order in orders)
+            {
+                var orderPayments = paymentLogic.Read(new PaymentBindingModel { OrderId = order.Id }).ToList();
+                payments.Add(order.Id, orderPayments);
+            }
+            return payments;
+        }
+
+        public List<ServiceViewModel> GetOrderServices(OrderViewModel order)
+        {
+            var services = new List<ServiceViewModel>();
+
+            foreach (var service in order.OrderServices)
+            {
+                services.Add(serviceLogic.Read(new ServiceBindingModel
+                {
+                    Id = service.ServiceId
+                }).FirstOrDefault());
+
+            }
+            return services;
+        }
+
         public List<IGrouping<DateTime, PaymentViewModel>> GetPayments(ReportBindingModel model)
         {
 
@@ -108,6 +137,18 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             SendMail(model.email, model.FileName, title);
         }
 
+        public void SaveOrderServicesToWordFile(string fileName, OrderViewModel order, string email)
+        {
+            string title = "Список услуг по заказу №" + order.Id;
+            SaveToWord.CreateDoc(new WordInfoClient
+            {
+                FileName = fileName,
+                Title = title,
+                Services = GetOrderServices(order)
+            });
+            SendMail(email, fileName, title);
+        }
+
         public void SavePaymentsToPdfFile(ReportBindingModel model)
         {
             string title = "Клиенты и их счета";
@@ -117,6 +158,31 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
                 Title = title,
                 Payments = GetPayments(model)
             });
+        }
+
+        public void SaveOrdersToPdfFile(string fileName, OrderBindingModel order, string email)
+        {
+            string title = " Просмотр заказанных услуг в период с " + order.DateFrom.ToString() + " по " + order.DateTo.ToString();
+            SaveToPdf.CreateDoc(new PdfInfoClient
+            {
+                FileName = fileName,
+                Title = title,
+                Orders = orderLogic.Read(order).ToList(),
+                Payments = GetOrders(order)
+            });
+            SendMail(email, fileName, title);
+        }
+
+        public void SaveOrderServicesToExcelFile(string fileName, OrderViewModel order, string email)
+        {
+            string title = "Список услуг по заказу №" + order.Id;
+            SaveToExcel.CreateDoc(new ExcelInfoClient
+            {
+                FileName = fileName,
+                Title = title,
+                Services = GetOrderServices(order)
+            });
+            SendMail(email, fileName, title);
         }
 
         public void SendMail(string email, string fileName, string subject)

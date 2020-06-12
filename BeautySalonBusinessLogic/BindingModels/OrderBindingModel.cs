@@ -32,6 +32,12 @@ namespace BeautySalonBusinessLogic.BindingModels
         public int Sum { get; set; }
 
         [DataMember]
+        public DateTime? DateTo { get; set; }
+
+        [DataMember]
+        public DateTime? DateFrom { get; set; }
+
+        [DataMember]
         public List<OrderServiceBindingModel> OrderServices { get; set; }
     }
 }
