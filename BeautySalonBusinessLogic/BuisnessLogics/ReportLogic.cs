@@ -38,6 +38,7 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
                         ClientFIO = order.ClientFIO,
                         DateCreate = order.DateCreate,
                         Sum = order.Sum,
+                        Price = order.Price,
                         Status = order.Status
                     };
                     list.Add(record);
@@ -54,13 +55,14 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             {
                 if (order.Id == id)
                 {
-                    if (order.Status == OrderStatus.Принят)
+                    if (order.Status != OrderStatus.Оплачен)
                     {
                         var record = new OrderViewModel
                         {
                             ClientFIO = order.ClientFIO,
                             DateCreate = order.DateCreate,
                             Sum = order.Sum,
+                            Price = order.Price,
                             Status = order.Status
                         };
 

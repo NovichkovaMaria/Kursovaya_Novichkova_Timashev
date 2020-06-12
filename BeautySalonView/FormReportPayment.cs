@@ -30,6 +30,7 @@ namespace BeautySalonView
         {
             this.reportViewer.RefreshReport();
         }
+
         public void LoadData()
         {
             if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
