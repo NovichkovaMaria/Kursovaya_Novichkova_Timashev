@@ -85,7 +85,7 @@ namespace BeautySalonWeb.Controllers
             if (model.OrderServices == null)
             {
                 ViewBag.OrderServices = _serviceLogic.Read(null);
-                ModelState.AddModelError("", "Ни один тур не выбран");
+                ModelState.AddModelError("", "Услуги не выбраны");
                 return View(model);
             }
             var orderServices = new List<OrderServiceBindingModel>();
@@ -104,7 +104,7 @@ namespace BeautySalonWeb.Controllers
             if (orderServices.Count == 0)
             {
                 ViewBag.Products = _serviceLogic.Read(null);
-                ModelState.AddModelError("", "Ни один тур не выбран");
+                ModelState.AddModelError("", "Услуги не выбраны");
                 return View(model);
             }
             _orderLogic.CreateOrUpdate(new OrderBindingModel
@@ -141,7 +141,7 @@ namespace BeautySalonWeb.Controllers
                 Id = id
             }).FirstOrDefault();
             ViewBag.Order = order;
-            ViewBag.LeftSum = CalculateSum(order);
+            ViewBag.Sum = CalculateSum(order);
             return View();
         }
         [HttpPost]
@@ -151,17 +151,17 @@ namespace BeautySalonWeb.Controllers
             {
                 Id = model.OrderId
             }).FirstOrDefault();
-            int leftSum = CalculateSum(order);
+            int sum = CalculateSum(order);
             if (!ModelState.IsValid)
             {
                 ViewBag.Order = order;
-                ViewBag.LeftSum = leftSum;
+                ViewBag.LeftSum = sum;
                 return View(model);
             }
-            if (leftSum < model.Sum)
+            if (sum < model.Sum)
             {
                 ViewBag.Order = order;
-                ViewBag.LeftSum = leftSum;
+                ViewBag.LeftSum = sum;
                 return View(model);
             }
             _paymentLogic.CreateOrUpdate(new PaymentBindingModel
@@ -171,7 +171,7 @@ namespace BeautySalonWeb.Controllers
                 DatePayment = DateTime.Now,
                 Sum = model.Sum
             });
-            leftSum -= model.Sum;
+            sum -= model.Sum;
             _orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
