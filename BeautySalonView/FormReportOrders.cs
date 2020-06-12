@@ -29,7 +29,7 @@ namespace BeautySalonView
         {
             if (comboBoxFIO.SelectedValue == null)
             {
-                MessageBox.Show("Выберите ФИО сотрудника", "Ошибка", MessageBoxButtons.OK,
+                MessageBox.Show("Выберите ФИО клиента", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
             }

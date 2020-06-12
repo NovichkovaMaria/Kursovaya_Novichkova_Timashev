@@ -144,6 +144,7 @@ namespace BeautySalonWeb.Controllers
             ViewBag.Sum = CalculateSum(order);
             return View();
         }
+
         [HttpPost]
         public ActionResult Payment(PaymentModel model)
         {
@@ -155,13 +156,13 @@ namespace BeautySalonWeb.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Order = order;
-                ViewBag.LeftSum = sum;
+                ViewBag.Sum = sum;
                 return View(model);
             }
-            if (sum < model.Sum)
+            if (order.Price - sum < model.Sum)
             {
                 ViewBag.Order = order;
-                ViewBag.LeftSum = sum;
+                ViewBag.Sum = order.Price - sum;
                 return View(model);
             }
             _paymentLogic.CreateOrUpdate(new PaymentBindingModel
@@ -171,7 +172,7 @@ namespace BeautySalonWeb.Controllers
                 DatePayment = DateTime.Now,
                 Sum = model.Sum
             });
-            sum -= model.Sum;
+            sum += model.Sum;
             _orderLogic.CreateOrUpdate(new OrderBindingModel
             {
                 Id = order.Id,
