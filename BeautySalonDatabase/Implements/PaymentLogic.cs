@@ -62,7 +62,9 @@ namespace BeautySalonDatabase.Implements
             using (var context = new Database())
             {
                 return context.Payments
-                .Where(rec => model == null || rec.Id == model.Id || rec.OrderId.Equals(model.OrderId))
+                .Where(rec => model == null || rec.Id == model.Id || rec.OrderId == model.OrderId 
+                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DatePayment >= model.DateFrom 
+                && rec.DatePayment <= model.DateTo))
                 .Select(rec => new PaymentViewModel
                 {
                     Id = rec.Id,
