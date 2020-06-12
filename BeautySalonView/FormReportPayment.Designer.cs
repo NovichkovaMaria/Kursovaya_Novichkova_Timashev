@@ -75,7 +75,7 @@
             // 
             // reportViewer
             // 
-            this.reportViewer.LocalReport.ReportEmbeddedResource = "BeautySalonView.ReportPayment.rdlc";
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "BeautySalonView.ReportPayments.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(13, 52);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;

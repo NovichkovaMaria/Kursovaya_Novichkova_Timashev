@@ -61,19 +61,36 @@ namespace BeautySalonDatabase.Implements
         {
             using (var context = new Database())
             {
-                return context.Payments
-                .Where(rec => model == null || rec.Id == model.Id || rec.OrderId == model.OrderId 
-                || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DatePayment >= model.DateFrom 
-                && rec.DatePayment <= model.DateTo))
-                .Select(rec => new PaymentViewModel
+                List<PaymentViewModel> result = new List<PaymentViewModel>();
+
+                if (model != null)
                 {
-                    Id = rec.Id,
-                    ClientId = rec.ClientId,
-                    DatePayment = rec.DatePayment,
-                    OrderId = rec.OrderId,
-                    Sum = rec.Sum
-                })
-                .ToList();
+                    result.AddRange(context.Payments
+                        .Where(rec => rec.Id == model.Id || rec.OrderId == model.OrderId 
+                        || (model.DateFrom != null && model.DateTo != null) 
+                        && (rec.DatePayment > model.DateFrom && (rec.DatePayment < model.DateTo)))
+                        .Select(rec => CreateViewModel(rec)));
+                }
+                else
+                {
+                    result.AddRange(context.Payments.Select(rec => CreateViewModel(rec)));
+                }
+                return result;
+            }
+        }
+
+        static private PaymentViewModel CreateViewModel(Payment payment)
+        {
+            using (var context = new Database())
+            {
+                return new PaymentViewModel
+                {
+                    Id = payment.Id,
+                    OrderId = payment.OrderId,
+                    ClientId = payment.ClientId,
+                    DatePayment = payment.DatePayment,
+                    Sum = payment.Sum
+                };
             }
         }
     }

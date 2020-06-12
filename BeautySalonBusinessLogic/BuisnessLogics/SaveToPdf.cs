@@ -1,6 +1,5 @@
 ﻿using BeautySalonBusinessLogic.Enums;
 using BeautySalonBusinessLogic.HelperModels;
-using DocumentFormat.OpenXml.Office2013.Excel;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -24,7 +23,7 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             paragraph.Style = "NormalTitle";
             paragraph.Style = "Normal";
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "6cm", "6cm", "6cm" };
+            List<string> columns = new List<string> { "6cm", "6cm", "6cm", "6cm" };
 
             foreach (var elem in columns)
             {
@@ -33,22 +32,23 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             CreateRow(new PdfRowParameters
             {
                 Table = table,
-                Texts = new List<string> { "ФИО клиента", "Счет" },
+                Texts = new List<string> { "ФИО клиента", "Счет", "Заказ" },
                 Style = "NormalTitle",
                 ParagraphAlignment = ParagraphAlignment.Center
             });
-
+            
             foreach (var cl in info.Payments)
             {
-                for (int i = 0; i < cl.Count(); i++)
+                foreach(var vm in cl)
                 {
                     CreateRow(new PdfRowParameters
                     {
                         Table = table,
                         Texts = new List<string>
                         {
-                            cl.ElementAt(i).ToString(),
-                            cl.ElementAt(i).Sum.ToString(),
+                            vm.ClientId.ToString(),
+                            vm.Sum.ToString(),
+                            vm.OrderId.ToString()
                         },
                         Style = "Normal",
                         ParagraphAlignment = ParagraphAlignment.Left
@@ -182,7 +182,7 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
         }
         private static void CreateRow(PdfRowParameters rowParameters)
         {
-            Row row = rowParameters.Table.AddRow();
+            MigraDoc.DocumentObjectModel.Tables.Row row = rowParameters.Table.AddRow();
             for (int i = 0; i < rowParameters.Texts.Count; ++i)
             {
                 FillCell(new PdfCellParameters
