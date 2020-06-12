@@ -55,7 +55,7 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
                     TableRow serviceRow = new TableRow();
                     TableCell fioCell = new TableCell(new Paragraph(new Run(new Text(order.ClientFIO))));
                     TableCell dateCreateCell = new TableCell(new Paragraph(new Run(new Text(order.DateCreate.ToString()))));
-                    TableCell sumCell = new TableCell(new Paragraph(new Run(new Text(order.Sum.ToString()))));
+                    TableCell sumCell = new TableCell(new Paragraph(new Run(new Text((order.Price - order.Sum).ToString()))));
                     TableCell statusCell = new TableCell(new Paragraph(new Run(new Text(order.Status.ToString()))));
                     serviceRow.Append(fioCell);
                     serviceRow.Append(dateCreateCell);

@@ -22,17 +22,21 @@ namespace BeautySalonView
         public FormReportPayment(ReportLogic logic)
         {
             InitializeComponent();
+            this.reportViewer.RefreshReport();
             this.logic = logic;
         }
 
         private void FormReportPayment_Load(object sender, EventArgs e)
         {
-
-            this.reportViewer.RefreshReport();
             this.reportViewer.RefreshReport();
         }
         public void LoadData()
         {
+            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
+            {
+                MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 var dataSource = logic.GetPayments(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, DateTo = dateTimePickerTo.Value.Date });

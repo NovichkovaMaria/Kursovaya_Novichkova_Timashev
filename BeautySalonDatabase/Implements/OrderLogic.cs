@@ -100,20 +100,61 @@ namespace BeautySalonDatabase.Implements
         {
             using (var context = new Database())
             {
-                return context.Orders.Where(rec => rec.Id == model.Id || (rec.ClientId == model.ClientId))
-                .Select(rec => new OrderViewModel
+                List<OrderViewModel> result = new List<OrderViewModel>();
+
+                if (model != null)
                 {
-                    Id = rec.Id,
-                    ClientId = rec.ClientId,
-                    ClientFIO = rec.Client.ClientFIO,
-                    Price = rec.Price,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement,
-                    Sum = context.Payments.Where(recP => recP.OrderId == rec.Id).Select(recP => recP.Sum).Sum(),
-                    Status = rec.Status,
-                    OrderServices = GetOrderServiceViewModel(rec)
-                })
-            .ToList();
+                    result.AddRange(context.Orders
+                        .Where(rec => rec.Id == model.Id || rec.ClientId == model.ClientId)
+                        .Select(rec => CreateViewModel(rec)));
+                }
+                else
+                {
+                    result.AddRange(context.Orders.Select(rec => CreateViewModel(rec)));
+                }
+                return result;
+            }
+        }
+
+        static private OrderViewModel CreateViewModel(Order order)
+        {
+            using (var context = new Database())
+            {
+                var services = context.OrderServices
+                    .Where(rec => rec.OrderId == order.Id)
+                    .Include(rec => rec.Service)
+                    .Select(rec => new OrderServiceViewModel
+                    {
+                        Id = rec.Id,
+                        OrderId = rec.OrderId,
+                        ServiceId = rec.ServiceId,
+                        ServiceName = rec.Service.ServiceName
+                    }).ToList();
+
+                foreach (var service in services)
+                {
+                    var serviceData = context.Services.Where(rec => rec.Id == service.ServiceId).FirstOrDefault();
+
+                    if (serviceData != null)
+                    {
+                        service.ServiceName = serviceData.ServiceName;
+                        service.Desc = serviceData.Desc;
+                        service.Price = serviceData.Price;
+                    }
+                }
+
+                return new OrderViewModel
+                {
+                    Id = order.Id,
+                    ClientId = order.ClientId,
+                    ClientFIO = context.Clients.Where(rec => rec.Id == order.ClientId).Select(rec => rec.ClientFIO).FirstOrDefault(),
+                    DateCreate = order.DateCreate,
+                    DateImplement = order.DateImplement,
+                    Status = order.Status,
+                    Price = order.Price,
+                    Sum = context.Payments.Where(rec => rec.OrderId == order.Id).Select(rec => rec.Sum).Sum(),
+                    OrderServices = services
+                };
             }
         }
 

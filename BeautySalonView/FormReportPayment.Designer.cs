@@ -79,7 +79,7 @@
             this.reportViewer.Location = new System.Drawing.Point(13, 52);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(677, 379);
+            this.reportViewer.Size = new System.Drawing.Size(674, 379);
             this.reportViewer.TabIndex = 5;
             // 
             // FormReportPayment

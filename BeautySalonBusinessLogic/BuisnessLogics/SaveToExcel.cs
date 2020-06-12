@@ -141,7 +141,7 @@ spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
                         ShareStringPart = shareStringPart,
                         ColumnName = "F",
                         RowIndex = rowIndex + 2,
-                        Text = sr.Sum.ToString(),
+                        Text = (sr.Price - sr.Sum).ToString(),
                         StyleIndex = 0U
                     });
                     InsertCellInWorksheet(new ExcelCellParameters
