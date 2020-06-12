@@ -5,12 +5,12 @@
 <h1>Заказы</h1>
 </div>
 <hr />
-<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="travel" asp-action="CreateTravel">Оформить</a></strong></p>
+<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="order" asp-action="CreateOrder">Оформить заказ</a></strong></p>
 <hr />
 @using (Html.BeginForm())
 {
 <p>
-Выберите даты для отображения отчета по путешествиям и оплатам</p>
+Выберите даты для отображения отчета по заказам</p>
 <p>
 От: @Html.EditorFor(model => model.From)
 </p>
@@ -18,16 +18,16 @@
 До: @Html.EditorFor(model => model.To)
 </p>
 <p>
-@Html.EditorFor(model => model.SendMail) Отправить отчёт по путешествиям и оплатам на почту
+@Html.EditorFor(model => model.SendMail) Отправить отчёт по заказам
 </p>
 <p>
-<button type="submit" class="btn btn-info btn-sm">Получить</button>
+<button type="submit" class="btn btn-info btn-sm">Получить отчет</button>
 </p>
 }
 <hr />
 @foreach (var order in ViewBag.orders)
 {
-<p><strong>Номер: @order.Id </strong></p>
+<p><strong>Заказ @order.Id </strong></p>
 <p>Дата создания: @order.DateCreate</p>
 <p>Статус: @order.Status</p>
 <p>Цена: @order.Price</p>
