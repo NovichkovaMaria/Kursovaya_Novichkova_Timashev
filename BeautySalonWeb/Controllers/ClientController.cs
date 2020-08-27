@@ -12,7 +12,6 @@ namespace BeautySalonWeb.Controllers
     public class ClientController : Controller
     {
         private readonly IClientLogic _client;
-
         public ClientController(IClientLogic client)
         {
             _client = client;

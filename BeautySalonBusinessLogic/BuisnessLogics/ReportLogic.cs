@@ -174,7 +174,6 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             });
             SendMail(email, fileName, title);
         }
-
         public void SaveOrderServicesToExcelFile(string fileName, OrderViewModel order, string email)
         {
             string title = "Список услуг по заказу №" + order.Id;
@@ -186,7 +185,6 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             });
             SendMail(email, fileName, title);
         }
-
         public void SendMail(string email, string fileName, string subject)
         {
             MailAddress from = new MailAddress("BeautySalonTestOrg@gmail.com", "Салон красоты <Вы ужасны>");

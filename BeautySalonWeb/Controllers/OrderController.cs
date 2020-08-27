@@ -25,7 +25,6 @@ namespace BeautySalonWeb.Controllers
             _paymentLogic = paymentLogic;
             _reportLogic = reportLogic;
         }
-
         public IActionResult Order()
         {
             ViewBag.Orders = _orderLogic.Read(new OrderBindingModel
@@ -133,7 +132,6 @@ namespace BeautySalonWeb.Controllers
             }
             return sum;
         }
-
         public IActionResult Payment(int id)
         {
             var order = _orderLogic.Read(new OrderBindingModel
@@ -144,7 +142,6 @@ namespace BeautySalonWeb.Controllers
             ViewBag.Sum = CalculateSum(order);
             return View();
         }
-
         [HttpPost]
         public ActionResult Payment(PaymentModel model)
         {
@@ -178,7 +175,7 @@ namespace BeautySalonWeb.Controllers
                 Id = order.Id,
                 ClientId = order.ClientId,
                 DateCreate = order.DateCreate,
-                Status = order.Sum < order.Price ? OrderStatus.Оплачен_не_полностью : OrderStatus.Оплачен,
+                Status = sum < order.Price ? OrderStatus.Оплачен_не_полностью : OrderStatus.Оплачен,
                 Price = order.Price,
                 OrderServices = order.OrderServices.Select(rec => new OrderServiceBindingModel
                 {
@@ -190,7 +187,6 @@ namespace BeautySalonWeb.Controllers
             });
             return RedirectToAction("Order");
         }
-
         private int CalculateSum(OrderViewModel order)
         {
             int paidSum = _paymentLogic.Read(new PaymentBindingModel
