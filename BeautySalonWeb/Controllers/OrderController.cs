@@ -77,6 +77,8 @@ namespace BeautySalonWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
+               var errors = ModelState.Where(x => x.Value.Errors.Any())
+               .Select(x => new { x.Key, x.Value.Errors });
                 ViewBag.OrderServices = _serviceLogic.Read(null);
                 return View(model);
             }
@@ -86,16 +88,17 @@ namespace BeautySalonWeb.Controllers
                 ModelState.AddModelError("", "Услуги не выбраны");
                 return View(model);
             }
+            
             var orderServices = new List<OrderServiceBindingModel>();
 
             foreach (var service in model.OrderServices)
             {
-                if (service.Value != 0)
+                if (service.Value == "on")
                 {
                     orderServices.Add(new OrderServiceBindingModel
                     {
                         ServiceId = service.Key,
-                        Count = service.Value
+                        Count = service.Value == "on" ? 1 : 0
                     });
                 }
             }

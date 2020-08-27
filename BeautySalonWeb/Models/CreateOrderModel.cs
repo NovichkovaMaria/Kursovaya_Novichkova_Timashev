@@ -7,6 +7,6 @@ namespace BeautySalonWeb.Models
 {
     public class CreateOrderModel
     {
-        public Dictionary<int, int> OrderServices { get; set; }
+        public Dictionary<int, string> OrderServices { get; set; }
     }
 }
