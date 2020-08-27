@@ -5,13 +5,12 @@
 <h1>Заказы</h1>
 </div>
 <hr />
-<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="order" asp-action="CreateOrder">Оформить</a></strong></p>
+<p> <strong> <a class="btn btn-info btn-sm" asp-area="" asp-controller="order" asp-action="CreateOrder">Оформить заказ</a></strong></p>
 <hr />
 @using (Html.BeginForm())
 {
 <p>
-Выберите даты для отображения отчета по заказам 
-</p>
+Выберите даты для отображения отчета по заказам</p>
 <p>
 От: @Html.EditorFor(model => model.From)
 </p>
@@ -19,15 +18,16 @@
 До: @Html.EditorFor(model => model.To)
 </p>
 <p>
-@Html.EditorFor(model => model.SendMail) Отправить отчёт по заказам на почту
+@Html.EditorFor(model => model.SendMail) Отправить отчёт по заказам
 </p>
 <p>
-<button type="submit" class="btn btn-info btn-sm">Получить</button>
-</p>}
+<button type="submit" class="btn btn-info btn-sm">Получить отчет</button>
+</p>
+}
 <hr />
 @foreach (var order in ViewBag.orders)
 {
-<p><strong>Номер: @order.Id </strong></p>
+<p><strong>Заказ @order.Id </strong></p>
 <p>Дата создания: @order.DateCreate</p>
 <p>Статус: @order.Status</p>
 <p>Цена: @order.Price</p>
@@ -43,8 +43,10 @@
 <td>@service.ServiceName</td>
 <td>@service.Desc</td>
 <td>@service.Price</td>
-</tr>}
-</table> if (order.Status != BeautySalonBusinessLogic.Enums.OrderStatus.Принят && ViewBag.Payments != null)
+</tr>
+}
+</table>
+if (order.Status != BeautySalonBusinessLogic.Enums.OrderStatus.Принят && ViewBag.Payments != null)
 {
 <p>Платежи:</p>
 <table class="table">
@@ -59,19 +61,24 @@ if (payment.OrderId == order.Id)
 <tr>
 <td>@payment.DatePayment</td>
 <td>@payment.Sum</td>
-</tr>}
+</tr>
 }
-</table> }
-<hr /> if (order.Status == BeautySalonBusinessLogic.Enums.OrderStatus.Оплачен)
+}
+</table>
+}
+<hr />
+if (order.Status == BeautySalonBusinessLogic.Enums.OrderStatus.Оплачен)
 {
 <p>Полностью оплачено</p>
-<hr /> }
+<hr />
+}
 else
 {
 if (order.Status == BeautySalonBusinessLogic.Enums.OrderStatus.Оплачен_не_полностью)
 {
 <p>Оплачено: @order.Sum</p>
-<hr /> }
+<hr />
+}
 <p>
 <a href="/Order/Payment/@order.Id">Оплатить</a>
 </p> }
@@ -81,4 +88,5 @@ if (order.Status == BeautySalonBusinessLogic.Enums.OrderStatus.Оплачен_н
 <p>
 <a href="/Order/SendExcelReport/@order.Id">Отправить список услуг в формате .xslx</a>
 </p>
-<hr />}
+<hr />
+}
