@@ -80,7 +80,6 @@ namespace BeautySalonWeb.Controllers
                 ViewBag.OrderServices = _serviceLogic.Read(null);
                 return View(model);
             }
-
             if (model.OrderServices == null)
             {
                 ViewBag.OrderServices = _serviceLogic.Read(null);
@@ -91,7 +90,7 @@ namespace BeautySalonWeb.Controllers
 
             foreach (var service in model.OrderServices)
             {
-                if (service.Value > 0)
+                if (service.Value != 0)
                 {
                     orderServices.Add(new OrderServiceBindingModel
                     {

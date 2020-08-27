@@ -16,12 +16,13 @@
         <td>Цена</td>
         @foreach (BeautySalonBusinessLogic.ViewModel.ServiceViewModel service in ViewBag.OrderServices)
          {
-            <tr>
-            <td>@service.ServiceName</td>
-            <td>@service.Desc</td>
-            <td><input type="number" name="Model.OrderServices[@service.Id]" value="0" min="0" /></td>
-            <td>@service.Price</td>
-            </tr>
+    <tr>
+        <td>@service.ServiceName</td>
+        <td>@service.Desc</td>
+        <td>@service.Price</td>
+        <td><input type="checkbox" name="Model.OrderServices[@service.Id]" value="true"/>
+            <input name="Enable" type="hidden" value="false"></td>
+    </tr>
          }
     </table>
     <button type="submit" class="btn btn-info btn-sm">Создать</button>
