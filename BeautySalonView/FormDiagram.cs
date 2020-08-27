@@ -17,12 +17,9 @@ namespace BeautySalonView
 {
     public partial class FormDiagram : Form
     {
-        private readonly IOrderLogic logic;
-
-        public FormDiagram(IOrderLogic logic)
+        public FormDiagram()
         {
             InitializeComponent();
-            this.logic = logic;
         }
 
         private void FormDiagram_Load(object sender, EventArgs e)
