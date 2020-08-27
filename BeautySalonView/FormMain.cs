@@ -44,5 +44,11 @@ namespace BeautySalonView
             var form = Container.Resolve<FormReportPayment>();
             form.ShowDialog();
         }
+
+        private void диаграммаЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormDiagram>();
+            form.ShowDialog();
+        }
     }
 }
