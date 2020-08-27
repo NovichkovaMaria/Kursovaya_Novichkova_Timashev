@@ -60,6 +60,10 @@ namespace BeautySalonView
                 {
                     serviceCount[i.ServiceId] += i.Count;
                 }
+                foreach (var i in context.Services)
+                {
+                    serviceNames[i.Id] += " - " + serviceCount[i.Id];
+                }
             }
 
             // Salary series data

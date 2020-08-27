@@ -58,7 +58,7 @@
             this.ClientSize = new System.Drawing.Size(778, 557);
             this.Controls.Add(this.chart);
             this.Name = "FormDiagram";
-            this.Text = "FormDiagram";
+            this.Text = "Диаграма заказов";
             this.Load += new System.EventHandler(this.FormDiagram_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
