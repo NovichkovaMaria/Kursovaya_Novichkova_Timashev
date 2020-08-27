@@ -35,6 +35,7 @@
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.счётКлиенту = new System.Windows.Forms.ToolStripMenuItem();
             this.поОплатамЗаПериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.диаграммаЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +79,8 @@
             // 
             this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.счётКлиенту,
-            this.поОплатамЗаПериодToolStripMenuItem});
+            this.поОплатамЗаПериодToolStripMenuItem,
+            this.диаграммаЗаказовToolStripMenuItem});
             this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
             this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.отчетыToolStripMenuItem.Text = "Отчеты";
@@ -96,6 +98,13 @@
             this.поОплатамЗаПериодToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.поОплатамЗаПериодToolStripMenuItem.Text = "По оплатам за период";
             this.поОплатамЗаПериодToolStripMenuItem.Click += new System.EventHandler(this.поОплатамЗаПериодToolStripMenuItem_Click);
+            // 
+            // диаграммаЗаказовToolStripMenuItem
+            // 
+            this.диаграммаЗаказовToolStripMenuItem.Name = "диаграммаЗаказовToolStripMenuItem";
+            this.диаграммаЗаказовToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.диаграммаЗаказовToolStripMenuItem.Text = "Диаграмма заказов";
+            this.диаграммаЗаказовToolStripMenuItem.Click += new System.EventHandler(this.диаграммаЗаказовToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -123,5 +132,6 @@
         private System.Windows.Forms.ToolStripMenuItem услугиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem счётКлиенту;
         private System.Windows.Forms.ToolStripMenuItem поОплатамЗаПериодToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem диаграммаЗаказовToolStripMenuItem;
     }
 }
