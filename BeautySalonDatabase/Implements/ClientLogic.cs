@@ -30,12 +30,12 @@ namespace BeautySalonDatabase.Implements
                     element = new Client();
                     context.Clients.Add(element);
                 }
-                element.Email = model.Email;
-                element.Login = model.Login;
-                element.ClientFIO = model.ClientFIO;
-                element.Phone = model.Phone;
-                element.isBlocked = model.isBlocked;
-                element.Password = model.Password;
+                element.Email = model.Email == null ? element.Email : model.Email;
+                element.Login = model.Login == null ? element.Login : model.Login;
+                element.ClientFIO = model.ClientFIO == null ? element.ClientFIO : model.ClientFIO;
+                element.Phone = model.Phone == null ? element.Phone : model.Phone;
+                element.isBlocked = model.isBlocked == null ? element.isBlocked : model.isBlocked;
+                element.Password = model.Password == null ? element.Password : model.Password;
                 context.SaveChanges();
             }
         }

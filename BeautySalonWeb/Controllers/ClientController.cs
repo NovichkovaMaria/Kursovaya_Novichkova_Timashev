@@ -75,7 +75,7 @@ namespace BeautySalonWeb.Controllers
                 }).FirstOrDefault();
                 if (existClient != null)
                 {
-                    ModelState.AddModelError("", "Данный E-Mail уже занят");
+                    ModelState.AddModelError("", "Данный E-Mail уже существует");
                     return View(client);
                 }
                 _client.CreateOrUpdate(new ClientBindingModel

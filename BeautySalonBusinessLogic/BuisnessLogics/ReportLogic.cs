@@ -153,7 +153,7 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
 
         public void SavePaymentsToPdfFile(ReportBindingModel model)
         {
-            string title = "Клиенты и их счета";
+            string title = "Клиенты и их платежи";
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
