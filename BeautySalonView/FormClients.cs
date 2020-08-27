@@ -28,6 +28,7 @@ namespace BeautySalonView
         {
             LoadData();
         }
+
         private void LoadData()
         {
             try

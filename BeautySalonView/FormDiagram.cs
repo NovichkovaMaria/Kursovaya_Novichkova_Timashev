@@ -1,4 +1,7 @@
 ﻿using BeautySalonBusinessLogic.Interfaces;
+using BeautySalonBusinessLogic.ViewModel;
+using BeautySalonDatabase;
+using BeautySalonDatabase.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +41,7 @@ namespace BeautySalonView
             chart.ChartAreas[0].BackColor = Color.Wheat;
 
             // Добавить и форматировать заголовок
-            chart.Titles.Add("Диаграммы");
+            chart.Titles.Add("Диаграмма заказов");
             chart.Titles[0].Font = new Font("Utopia", 16);
 
             chart.Series.Add(new Series("ColumnSeries")
@@ -46,12 +49,24 @@ namespace BeautySalonView
                 ChartType = SeriesChartType.Pie
             });
 
+            Dictionary<int, int> serviceCount = new Dictionary<int, int>();
+            Dictionary<int, string> serviceNames = new Dictionary<int, string>();
 
+            using (var context = new Database())
+            {
+                foreach (var i in context.Services)
+                {
+                    serviceNames.Add(i.Id, i.ServiceName);
+                    serviceCount.Add(i.Id, 0);
+                }
+                foreach (var i in context.OrderServices)
+                {
+                    serviceCount[i.ServiceId] += i.Count;
+                }
+            }
 
             // Salary series data
-            double[] yValues = { 2222, 2724, 2720, 3263, 2445 };
-            string[] xValues = { "France", "Canada", "Germany", "USA", "Italy" };
-            chart.Series["ColumnSeries"].Points.DataBindXY(xValues, yValues);
+            chart.Series["ColumnSeries"].Points.DataBindXY(serviceNames.Values, serviceCount.Values);
 
             chart.ChartAreas[0].Area3DStyle.Enable3D = true;
         }

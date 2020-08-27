@@ -31,7 +31,6 @@ namespace BeautySalonView
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-
             if (textBoxName.Text != "" && textBoxPrice.Text != "" && textBoxDesc.Text != "")
             {
                 logic.CreateOrUpdate(new ServiceBindingModel
@@ -45,7 +44,6 @@ namespace BeautySalonView
                 Close();
             }
         }
-
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
