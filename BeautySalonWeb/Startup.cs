@@ -26,6 +26,7 @@ namespace BeautySalonWeb
             services.AddTransient<IPaymentLogic, PaymentLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IServiceLogic, ServiceLogic>();
+            services.AddTransient<BackUpAbstractLogic, BackUpLogic>();
             services.AddTransient<ReportLogic>();
         }
 

@@ -29,5 +29,6 @@ namespace BeautySalonDatabase
         public virtual DbSet<Payment> Payments { set; get; }
 
         public virtual DbSet<Service> Services { set; get; }
+        public object Customers { get; internal set; }
     }
 }

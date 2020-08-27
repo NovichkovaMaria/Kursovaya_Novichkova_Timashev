@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="Implements\BackUpLogic.cs" />
     <Compile Include="Implements\ClientLogic.cs" />
     <Compile Include="Implements\OrderLogic.cs" />
     <Compile Include="Implements\PaymentLogic.cs" />
@@ -167,6 +168,10 @@
     <Compile Include="Migrations\20200607112437_Init.cs" />
     <Compile Include="Migrations\20200607112437_Init.designer.cs">
       <DependentUpon>20200607112437_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200827202024_backup.cs" />
+    <Compile Include="Migrations\20200827202024_backup.designer.cs">
+      <DependentUpon>20200827202024_backup.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\DatabaseModelSnapshot.cs" />
     <Compile Include="Models\Client.cs" />
