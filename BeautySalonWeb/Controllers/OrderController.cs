@@ -140,6 +140,7 @@ namespace BeautySalonWeb.Controllers
             {
                 Id = id
             }).FirstOrDefault();
+            ViewBag.Price = order.Price;
             ViewBag.Order = order;
             ViewBag.Sum = CalculateSum(order);
             return View();
