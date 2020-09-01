@@ -17,12 +17,15 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
         private readonly IOrderLogic orderLogic;
         private readonly IPaymentLogic paymentLogic;
         private readonly IServiceLogic serviceLogic;
+        private readonly IClientLogic clientLogic;
 
-        public ReportLogic(IOrderLogic orderLogic, IPaymentLogic paymentLogic, IServiceLogic serviceLogic)
+        public ReportLogic(IOrderLogic orderLogic, IPaymentLogic paymentLogic,
+            IServiceLogic serviceLogic, IClientLogic clientLogic)
         {
             this.orderLogic = orderLogic;
             this.paymentLogic = paymentLogic;
             this.serviceLogic = serviceLogic;
+            this.clientLogic = clientLogic;
         }
 
         public List<OrderViewModel> GetOrders()
@@ -100,19 +103,27 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             return services;
         }
 
-        public List<IGrouping<DateTime, PaymentViewModel>> GetPayments(ReportBindingModel model)
+        public List<ReportViewModel> GetPayments(ReportBindingModel model)
         {
-
             var cl = paymentLogic.Read(new PaymentBindingModel
             {
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo,
-                
-            })
-            .GroupBy(rec => rec.DatePayment.Date)
-            .OrderBy(recG => recG.Key)
-            .ToList();
-            return cl;
+            });
+            List<ReportViewModel> rm = new List<ReportViewModel>();
+            foreach(var payment in cl)
+            {
+                string clientFIO = clientLogic.Read(new ClientBindingModel { Id = payment.ClientId })
+                            .FirstOrDefault(rec => rec.Id == payment.ClientId).ClientFIO;
+                rm.Add(new ReportViewModel
+                {
+                    ClientFIO = clientFIO,
+                    DatePayment = payment.DatePayment,
+                    OrderId = payment.OrderId,
+                    Sum = payment.Sum
+                });
+            }
+            return rm;
         }
 
         public void SaveOrdersToExcelFile(ReportBindingModel model)

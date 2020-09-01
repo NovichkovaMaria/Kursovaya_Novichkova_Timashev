@@ -11,7 +11,6 @@ namespace BeautySalonBusinessLogic.HelperModels
         public string FileName { get; set; }
         public string Title { get; set; }
 
-
-        public List<IGrouping<DateTime, PaymentViewModel>> Payments { get; set; }
+        public List<ReportViewModel> Payments { get; set; }
     }
 }

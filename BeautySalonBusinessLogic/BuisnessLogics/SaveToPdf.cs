@@ -23,7 +23,7 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             paragraph.Style = "NormalTitle";
             paragraph.Style = "Normal";
             var table = document.LastSection.AddTable();
-            List<string> columns = new List<string> { "6cm", "6cm", "6cm", "6cm" };
+            List<string> columns = new List<string> { "6cm", "2cm", "3cm", "3cm" };
 
             foreach (var elem in columns)
             {
@@ -32,28 +32,26 @@ namespace BeautySalonBusinessLogic.BuisnessLogics
             CreateRow(new PdfRowParameters
             {
                 Table = table,
-                Texts = new List<string> { "ФИО клиента", "Счет", "Заказ" },
+                Texts = new List<string> { "ФИО клиента", "Заказ", "Дата оплаты", "Счет" },
                 Style = "NormalTitle",
                 ParagraphAlignment = ParagraphAlignment.Center
             });
             
             foreach (var cl in info.Payments)
             {
-                foreach(var vm in cl)
+                CreateRow(new PdfRowParameters
                 {
-                    CreateRow(new PdfRowParameters
+                    Table = table,
+                    Texts = new List<string>
                     {
-                        Table = table,
-                        Texts = new List<string>
-                        {
-                            vm.ClientId.ToString(),
-                            vm.Sum.ToString(),
-                            vm.OrderId.ToString()
-                        },
-                        Style = "Normal",
-                        ParagraphAlignment = ParagraphAlignment.Left
-                    });
-                }
+                        cl.ClientFIO,
+                        cl.OrderId.ToString(),
+                        cl.DatePayment.ToString(),
+                        cl.Sum.ToString()
+                    },
+                    Style = "Normal",
+                    ParagraphAlignment = ParagraphAlignment.Left
+                });
             }
             PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
             {

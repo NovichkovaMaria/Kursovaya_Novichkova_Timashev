@@ -1,5 +1,8 @@
 ﻿using BeautySalonBusinessLogic.BindingModels;
 using BeautySalonBusinessLogic.BuisnessLogics;
+using BeautySalonBusinessLogic.ViewModel;
+using BeautySalonDatabase.Implements;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
@@ -19,10 +22,12 @@ namespace BeautySalonView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly ReportLogic logic;
-        public FormReportPayment(ReportLogic logic)
+        private readonly ClientLogic logicC;
+        public FormReportPayment(ReportLogic logic, ClientLogic logicC)
         {
             InitializeComponent();
             this.logic = logic;
+            this.logicC = logicC;
         }
 
         private void FormReportPayment_Load(object sender, EventArgs e)
@@ -39,7 +44,11 @@ namespace BeautySalonView
             }
             try
             {
+                ReportParameter parameter = new ReportParameter("ReportParameterPeriod", "c " + dateTimePickerFrom.Value.ToShortDateString() + " по " + dateTimePickerTo.Value.ToShortDateString());
+                reportViewer.LocalReport.SetParameters(parameter);
+
                 var dataSource = logic.GetPayments(new ReportBindingModel { DateFrom = dateTimePickerFrom.Value.Date, DateTo = dateTimePickerTo.Value.Date });
+
                 ReportDataSource source = new ReportDataSource("DataSetPayments", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
