@@ -104,9 +104,19 @@ namespace BeautySalonDatabase.Implements
 
                 if (model != null)
                 {
-                    result.AddRange(context.Orders
+                    if ((model.DateTo != null) && (model.DateFrom != null))
+                    {
+                        result.AddRange(context.Orders
+                        .Where(rec => (rec.Id == model.Id || rec.ClientId == model.ClientId)
+                        && (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+                        .Select(rec => CreateViewModel(rec)));
+                    }
+                    else
+                    {
+                        result.AddRange(context.Orders
                         .Where(rec => rec.Id == model.Id || rec.ClientId == model.ClientId)
                         .Select(rec => CreateViewModel(rec)));
+                    }
                 }
                 else
                 {
